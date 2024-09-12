@@ -4,6 +4,7 @@ import Browser
 import Html exposing (Html, button, div, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
+import Random exposing (Generator, Seed, step, uniform)
 
 
 
@@ -14,6 +15,7 @@ type alias Model =
     { x : Int
     , y : Int
     , direction : Direction
+    , fontGroup : FontGroup
     }
 
 
@@ -24,13 +26,30 @@ type Direction
     | West
 
 
-init : Model
-init =
-    { x = 2, y = 2, direction = North }
+type FontGroup
+    = GroupA -- Existing font
+    | GroupB -- New font
+
+
+init : () -> ( Model, Cmd Msg )
+init _ =
+    let
+        seed =
+            Random.initialSeed 12345
+
+        ( randomGroup, _ ) =
+            Random.step fontGroupGenerator seed
+    in
+    ( { x = 2, y = 2, direction = North, fontGroup = randomGroup }, Cmd.none )
+
+
+fontGroupGenerator : Generator FontGroup
+fontGroupGenerator =
+    Random.uniform GroupA [ GroupB ]
 
 
 
--- UPDATE
+-- MESSAGES
 
 
 type Msg
@@ -39,17 +58,21 @@ type Msg
     | RotateRight
 
 
-update : Msg -> Model -> Model
+
+-- UPDATE
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         MoveForward ->
-            moveForward model
+            ( moveForward model, Cmd.none )
 
         RotateLeft ->
-            { model | direction = rotateLeft model.direction }
+            ( { model | direction = rotateLeft model.direction }, Cmd.none )
 
         RotateRight ->
-            { model | direction = rotateRight model.direction }
+            ( { model | direction = rotateRight model.direction }, Cmd.none )
 
 
 moveForward : Model -> Model
@@ -122,7 +145,7 @@ rotateRight direction =
 
 view : Model -> Html Msg
 view model =
-    div [ class "grid-container" ]
+    div [ class ("grid-container " ++ fontClass model.fontGroup) ]
         [ div [ class "grid" ]
             [ text (gridRepresentation model)
             ]
@@ -132,6 +155,21 @@ view model =
             , button [ onClick RotateRight, class "button" ] [ text "Rotate Right" ]
             ]
         ]
+
+
+fontClass : FontGroup -> String
+fontClass group =
+    case group of
+        GroupA ->
+            "group-a-font"
+
+        -- Existing font class
+        GroupB ->
+            "group-b-font"
+
+
+
+-- New font you're testing
 
 
 gridRepresentation : Model -> String
@@ -160,4 +198,9 @@ directionToString direction =
 
 
 main =
-    Browser.sandbox { init = init, update = update, view = view }
+    Browser.element
+        { init = init
+        , update = update
+        , subscriptions = \_ -> Sub.none
+        , view = view
+        }

@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
     color: #333;
@@ -35,26 +35,36 @@ button {
 button:hover {
     background-color: #4A6274;
 }
+*/
 
-/* Button Base Styles */
+
+/* Group A - Existing font (e.g., Arial) */
+.group-a-font {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Group B - New font (e.g., NewFont) */
+.group-b-font {
+    font-family: 'NewFont', sans-serif; /* Replace with your new font */
+}
+
+/* Button styles (unchanged from before) */
 .button {
     display: inline-flex;
-    padding: 10px 20px; /* Similar to br_px-4 br_py-2 */
-    font-family: 'Arial', sans-serif; /* Assuming Arial, or adjust to match Bellroy's sans-serif */
-    font-size: 14px; /* Similar to br_text-sm */
-    font-weight: bold; /* Similar to br_text-base-sans-bold-cta-uppercase */
-    text-transform: uppercase; /* Similar to br_text-base-sans-bold-cta-uppercase */
-    justify-content: center; /* br_justify-center */
-    text-decoration: none; /* br_no-underline */
-    border-radius: 5px; /* br_rounded */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* br_shadow-button */
-    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* br_transition br_duration-200 */
-    background-color: #FF7033; /* br_bg-orange */
-    color: white; /* br_text-white */
-    cursor: pointer; /* br_cursor-pointer */
+    padding: 10px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #FF7033;
+    color: white;
+    cursor: pointer;
 }
 
 .button:hover {
-    background-color: #d85a2a; /* hover:br_bg-orange-dark */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* hover:br_shadow-pressed */
+    background-color: #d85a2a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
