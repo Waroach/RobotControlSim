@@ -34,13 +34,21 @@ type FontGroup
 init : () -> ( Model, Cmd Msg )
 init _ =
     let
+        _ =
+            Debug.log "init" "load2"
+
         seed =
             Random.initialSeed 12345
 
         ( randomGroup, _ ) =
             Random.step fontGroupGenerator seed
     in
-    ( { x = 2, y = 2, direction = North, fontGroup = randomGroup }, Cmd.none )
+    ( { x = 2, y = 2, direction = North, fontGroup = randomGroup }, debugLog "Elm app initialized" Cmd.none )
+
+
+debugLog : String -> a -> a
+debugLog =
+    Debug.log
 
 
 fontGroupGenerator : Generator FontGroup
@@ -139,12 +147,12 @@ rotateRight direction =
             North
 
 
-
--- VIEW
-
-
 view : Model -> Html Msg
 view model =
+    let
+        _ =
+            Debug.log "View Function called" model
+    in
     div [ class ("grid-container " ++ fontClass model.fontGroup) ]
         [ div [ class "grid" ]
             [ text (gridRepresentation model)
