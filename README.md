@@ -8,6 +8,13 @@ Create a Javascript application in which you can simulate controlling a robot. T
 
 ## Getting Started
 
+Step-by-Step Breakdown:
+
+1. Grid Setup: The robot will be placed on a 5x5 grid.
+2. Robot State: We'll manage the robot’s position and direction (north, south, east, west).
+3. Controls: Add buttons for rotating the robot and moving it forward.
+4. Bellroy Design: We'll keep the design minimalist and use soft colors with rounded buttons, similar to Bellroy's aesthetic.
+
 ### Dependencies
 
 - Describe any prerequisites, libraries, OS version, etc., needed before installing program.
@@ -19,7 +26,7 @@ Create a Javascript application in which you can simulate controlling a robot. T
 - Any modifications needed to be made to files/folders
 
 ```
-npm install
+npm install -g elm
 ```
 
 ### Executing program
@@ -27,8 +34,11 @@ npm install
 -
 
 ```
-code blocks for commands
+elm reactor
 ```
+
+Then go to
+http://localhost:8000
 
 ## Help
 
